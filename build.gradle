@@ -1,0 +1,26 @@
+plugins {
+  id "org.sonarqube" version "2.2"
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+mainClassName = 'machinelearning.neuralnetwork.Application'
+version = '0.1.0'
+
+dependencies {
+
+	compile group: 'org.testng', name: 'testng', version: '6.9.13.6'
+
+}
+
