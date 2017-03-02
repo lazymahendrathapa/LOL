@@ -8,42 +8,47 @@ public class Layer {
 	double[] output;
 	double[] error;
 	double[][] weight;
-	double[][] delta;
-	
-	public int getUnits() {
-		return units;
+
+	public static void printLayers(Layer[] layers) {
+
+		for (int i = 0; i < layers.length; ++i)
+			System.out.println(layers[i].toString());
 	}
-	public void setUnits(int units) {
-		this.units = units;
-	}
-	public double[] getOutput() {
-		return output;
-	}
-	public void setOutput(double[] output) {
-		this.output = output;
-	}
-	public double[] getError() {
-		return error;
-	}
-	public void setError(double[] error) {
-		this.error = error;
-	}
-	public double[][] getWeight() {
-		return weight;
-	}
-	public void setWeight(double[][] weight) {
-		this.weight = weight;
-	}
-	public double[][] getDelta() {
-		return delta;
-	}
-	public void setDelta(double[][] delta) {
-		this.delta = delta;
-	}
-	
+
 	@Override
 	public String toString() {
 		return "Layer [units=" + units + ", output=" + Arrays.toString(output) + ", error=" + Arrays.toString(error)
-				+ ", weight=" + Arrays.toString(weight) + ", delta=" + Arrays.toString(delta) + "]";
+				+ ", weight=" + Arrays.deepToString(weight) + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(error);
+		result = prime * result + Arrays.hashCode(output);
+		result = prime * result + units;
+		result = prime * result + Arrays.deepHashCode(weight);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Layer other = (Layer) obj;
+		if (!Arrays.equals(error, other.error))
+			return false;
+		if (!Arrays.equals(output, other.output))
+			return false;
+		if (units != other.units)
+			return false;
+		if (!Arrays.deepEquals(weight, other.weight))
+			return false;
+		return true;
 	}
 }
