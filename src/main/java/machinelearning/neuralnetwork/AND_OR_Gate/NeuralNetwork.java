@@ -1,15 +1,13 @@
-package machinelearning.neuralnetwork;
+package machinelearning.neuralnetwork.AND_OR_Gate;
 
 import java.util.Random;
-
-import machinelearning.neuralnetwork.lossfunction.LossFunction;
 
 public class NeuralNetwork {
 
 	private Random random = new Random();
 	
-	private ActivationFunction activationFunction;
-	private LossFunction lossFunction;
+	private ActivationFunction activationFunction = ActivationFunction.STEP_FUNCTION;
+	private ErrorFunction errorFunction = ErrorFunction.SIMPLE_ERROR;
 
 	private double learningRate = 0.1;
 	private int numOfLayers;
@@ -18,10 +16,7 @@ public class NeuralNetwork {
 	private double[] target;
 
 
-	public NeuralNetwork(LossFunction lossFunction, ActivationFunction activationFunction, int... numUnits) {
-
-		this.lossFunction = lossFunction;
-		this.activationFunction = activationFunction;
+	public NeuralNetwork(int... numUnits) {
 
 		this.numOfLayers = numUnits.length;
 
@@ -66,8 +61,6 @@ public class NeuralNetwork {
 			for (int i = 0; i < inputValue.length; ++i){
 				error += learn(inputValue[i], targetValue[i]);
 			}
-
-			error /= inputValue.length;
 
 			System.out.println("Error: " + error);
 
@@ -155,7 +148,7 @@ public class NeuralNetwork {
 
 		for (int i = 0; i < layers[numOfLayers - 1].units; ++i) {
 
-			double gradient = lossFunction.getError(target[i], layers[numOfLayers - 1].output[i]);
+			double gradient = errorFunction.getError(target[i], layers[numOfLayers - 1].output[i]);
 			outputLayerError[i] = gradient;
 			error += Math.abs(gradient);
 		}

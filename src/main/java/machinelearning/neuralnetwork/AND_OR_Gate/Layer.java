@@ -1,4 +1,4 @@
-package machinelearning.neuralnetwork;
+package machinelearning.neuralnetwork.AND_OR_Gate;
 
 import java.util.Arrays;
 
